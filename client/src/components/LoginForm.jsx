@@ -40,7 +40,7 @@ const LoginForm = () => {
       const { data } = await LoginUser({
         variables: { email: userFormData.email, password: userFormData.password }
       });
-  
+      console.log(data);
       const { token, user } = data.login;
       console.log(user);
       Auth.login(token);
@@ -50,7 +50,7 @@ const LoginForm = () => {
     }
 
     setUserFormData({
-      username: '',
+      // username: '',
       email: '',
       password: '',
     });
