@@ -41,7 +41,7 @@ const LoginForm = () => {
         variables: { email: userFormData.email, password: userFormData.password }
       });
   
-      const { token, user } = data.login_user;
+      const { token, user } = data.login;
       console.log(user);
       Auth.login(token);
     } catch (err) {
