@@ -8,6 +8,13 @@ import {
 } from 'react-bootstrap';
 
 import { getMe, deleteBook } from '../utils/API';
+import { GET_USER } from '../utils/queries';
+import {
+  CREATE_USER,
+  LOGIN_USER,
+  SAVE_BOOK,
+  DELETE_BOOK
+} from '../utils/mutations';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
