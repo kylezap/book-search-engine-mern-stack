@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 
-import { getMe, deleteBook } from "../utils/API";
+// import { getMe, deleteBook } from "../utils/API";
 import { GET_USER } from "../utils/queries";
 import {
   DELETE_BOOK,
@@ -27,21 +27,13 @@ const SavedBooks = () => {
   
   let books = data.getUser.savedBooks;
   
-  //console.log(books);
-  
-  
-        
-  // create function that accepts the book's mongo _id value as param and deletes the book from the database
-  
-  
 
   const handleDeleteBook = async (bookId) => {
   try {
     const { data } = await deleteBook({
       variables: { bookId: bookId, userId: userId },
     });
-
-    // setUserData(data.deleteBook);
+    console.log(data);
     removeBookId(bookId);
   } catch (err) {
     console.error(err);
