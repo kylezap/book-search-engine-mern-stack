@@ -14,4 +14,16 @@ query GetUser($userId: ID!) {
     }
   }
 }
+`
+
+export const SEARCH_BOOKS = gql`
+  query SearchBooks($title: String!) {
+    searchBooks(title: $title) {
+      bookId
+      title
+      authors
+      description
+      image
+    }
+  }
 `;

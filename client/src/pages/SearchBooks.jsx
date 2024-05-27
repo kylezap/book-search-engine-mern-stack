@@ -9,8 +9,11 @@ import {
 } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { saveBook, searchGoogleBooks } from '../utils/API';
+// import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { SEARCH_BOOKS } from '../utils/queries';
+import { SAVE_BOOK } from '../utils/mutations';
 
 const SearchBooks = () => {
   // create state for holding returned google api data
@@ -20,6 +23,13 @@ const SearchBooks = () => {
 
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+
+  const [searchBooks] = useLazyQuery(SEARCH_BOOKS, {onCompleted: data => setSearchedBooks(data.searchBooks)});
+ 
+  // create state to hold our saved book data
+  const [saveBook] = useMutation(SAVE_BOOK, {
+    onCompleted: data => setSavedBookIds([...savedBookIds, data.saveBook.bookId]),
+  });
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
@@ -34,29 +44,36 @@ const SearchBooks = () => {
     if (!searchInput) {
       return false;
     }
-
     try {
-      const response = await searchGoogleBooks(searchInput);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { items } = await response.json();
-
-      const bookData = items.map((book) => ({
-        bookId: book.id,
-        authors: book.volumeInfo.authors || ['No author to display'],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || '',
-      }));
-
-      setSearchedBooks(bookData);
-      setSearchInput('');
+      await searchBooks({ variables: { title: searchInput } });
     } catch (err) {
       console.error(err);
     }
+
+    //commented out to use Apollo
+
+    // try {
+    //   const response = await searchGoogleBooks(searchInput);
+
+    //   if (!response.ok) {
+    //     throw new Error('something went wrong!');
+    //   }
+
+    //   const { items } = await response.json();
+
+    //   const bookData = items.map((book) => ({
+    //     bookId: book.id,
+    //     authors: book.volumeInfo.authors || ['No author to display'],
+    //     title: book.volumeInfo.title,
+    //     description: book.volumeInfo.description,
+    //     image: book.volumeInfo.imageLinks?.thumbnail || '',
+    //   }));
+
+    //   setSearchedBooks(bookData);
+    //   setSearchInput('');
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   // create function to handle saving a book to our database
@@ -72,17 +89,25 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      await saveBook({ variables: { input: bookToSave } });
     } catch (err) {
       console.error(err);
     }
+
+    //commented out to use Apollo
+    
+    // try {
+    //   const response = await saveBook(bookToSave, token);
+
+    //   if (!response.ok) {
+    //     throw new Error('something went wrong!');
+    //   }
+
+    //   // if book successfully saves to user's account, save book id to state
+    //   setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   return (
