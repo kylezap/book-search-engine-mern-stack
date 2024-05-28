@@ -48,6 +48,7 @@ const SearchBooks = () => {
     }
     try {
       await searchBooks({ variables: { title: searchInput } });
+      setSearchInput('');
     } catch (err) {
       console.error(err);
     }
