@@ -1,5 +1,7 @@
-# Book Search Engine
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+# Google Book Search
+[Google Book Search](https://book-search-engine-whc8.onrender.com)
+
+![screenshot](./client/src/assets/book-screenshot.png)
 
 # Table of Contents
 1. [Description](#Description)
@@ -11,23 +13,20 @@
 7. [Questions](#questions)
 
 ## Description
-This Search Engine specifically allows a user to get up to 10 different books that match their search criteria for book title.  As a user they can then create an account or login and save and delete books from their account.
+This app lets you search and save books from the Google Books API.
 
 ## Installation
-None, runs in all browsers.
+NA
 
 ## Usage
-This is for anyone looking for a quick way to find books matching their tastes.
+This app is lets users search for relevant books based on title, save selections, see all saved books, and delete books from their collection. 
 
 ## License
-This is a Apache License 2.0
+This is a Apache License 2.0 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Contributors
 @kylezap
 
 ## Testing
 NA
-
-## Questions?
-If you have any questions, feel free to send me an email at [kzapcic@gmail.com](mailto:kzapcic@gmail.com)
 
