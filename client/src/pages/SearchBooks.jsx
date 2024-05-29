@@ -27,7 +27,7 @@ const SearchBooks = () => {
   const [searchBooks] = useLazyQuery(SEARCH_BOOKS, {onCompleted: data => setSearchedBooks(data.searchBooks)});
  
   console.log(savedBookIds);
-  const userId = Auth.getProfile().data._id;
+  
   // create state to hold our saved book data
   const [saveBook] = useMutation(SAVE_BOOK, {
     onCompleted: data => setSavedBookIds([...savedBookIds, data.saveBook.bookId]),
@@ -81,7 +81,7 @@ const SearchBooks = () => {
 
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookId) => {
-    // find the book in `searchedBooks` state by the matching id
+    const userId = Auth.getProfile().data._id;
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
     const { __typename, ...bookInput } = bookToSave;
     // get token
