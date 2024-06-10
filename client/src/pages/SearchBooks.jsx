@@ -147,19 +147,24 @@ const SearchBooks = () => {
           {searchedBooks.map((book) => {
             return (
               <Col md="4" key={book.bookId}>
-                <Card border="dark">
+                <Card
+                  border="dark"
+                  style={{ marginBottom: "20px", marginTop: "20px" }}
+                >
                   {book.image ? (
                     <Card.Img
                       src={book.image}
                       alt={`The cover for ${book.title}`}
                       variant="top"
-                      style={{ width: "100%", height: "20vw", } }
+                      style={{ width: "100%", height: "20vw" }}
                     />
                   ) : null}
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
                     <p className="small">Authors: {book.authors}</p>
-                    <Card.Text>{book.description}</Card.Text>
+                    <Card.Text>
+                      {book.description.substr(0, 200) + "..."}
+                    </Card.Text>
                     {Auth.loggedIn() && (
                       <Button
                         disabled={savedBookIds?.some(
